@@ -5,6 +5,7 @@
  */
 package pacman;
 
+import pacman.powerup.PacDots;
 import pacman.powerup.SpeedBoost;
 import pacman.walls.UnbreakableWall;
 import pacman.powerup.ExtraLife;
@@ -31,6 +32,10 @@ public class GameWorld extends JPanel  {
     private Graphics2D buffer;
     private JFrame jf;
     private PacMan p1;
+    private Enemy ghost1;
+    private Enemy ghost2;
+    private Enemy ghost3;
+    private Enemy ghost4;
     private GameMap map;
     private Background background;
 
@@ -54,27 +59,46 @@ public class GameWorld extends JPanel  {
         this.jf = new JFrame("PacMan");
 
         this.world = new BufferedImage(GameWorld.SCREEN_WIDTH, GameWorld.SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
-        BufferedImage t1img=null, left = null, up = null, down = null, backgroundImg;
+        BufferedImage t1img=null, left = null, up = null, down = null, closed = null, backgroundImg;
+        BufferedImage enemy1_up = null, enemy2_up = null, enemy3_up = null, enemy4_up = null;
+        BufferedImage enemy1_down = null, enemy2_down = null, enemy3_down = null, enemy4_down = null;
+        BufferedImage enemy1_left = null, enemy2_left = null, enemy3_left = null, enemy4_left = null;
+        BufferedImage enemy1_right = null, enemy2_right = null, enemy3_right = null, enemy4_right = null;
 
         try {
             BufferedImage tmp;
 
             t1img = read(new File("resources/pac_right.png"));
-
             left = read(new File("resources/pac_left.png"));
-
             up = read(new File("resources/pac_up.png"));
-
             down = read(new File("resources/pac_down.png"));
+            closed = read(new File("resources/closed_pac.png"));
+
+            enemy1_up = read(new File("resources/green_up.png"));
+            enemy1_down = read(new File("resources/green_down.png"));
+            enemy1_right = read(new File("resources/green_right.png"));
+            enemy1_left = read(new File("resources/green_left.png"));
+
+            enemy2_up = read(new File("resources/red_up.png"));
+            enemy2_down = read(new File("resources/red_down.png"));
+            enemy2_left = read(new File("resources/red_left.png"));
+            enemy2_right = read(new File("resources/red_right.png"));
+
+            enemy3_up = read(new File("resources/blue_up.png"));
+            enemy3_down = read(new File("resources/blue_down.png"));
+            enemy3_left = read(new File("resources/blue_left.png"));
+            enemy3_right = read(new File("resources/blue_right.png"));
+
+            enemy4_up = read(new File("resources/purple_up.png"));
+            enemy4_down = read(new File("resources/purple_down.png"));
+            enemy4_left = read(new File("resources/purple_left.png"));
+            enemy4_right = read(new File("resources/purple_right.png"));
 
             backgroundImg = read(new File("resources/background.png"));
-
             background = new Background(backgroundImg);
-
             UnbreakableWall.setImg(read(new File("resources/tile.png")));
-
-            ExtraLife.setImg(read(new File("resources/pear.png")));
-
+            PacDots.setImg(read(new File("resources/collectible_small.png")));
+            ExtraLife.setImg(read(new File("resources/life.png")));
             SpeedBoost.setImg(read(new File("resources/cherry.png")));
 
             //player1wins = ImageIO.read(getClass().getResource("/resources/player-1-wins.png"));
@@ -84,7 +108,12 @@ public class GameWorld extends JPanel  {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        p1 = new PacMan(555, 473, 0, 0, 0, up, down, left, t1img);
+        p1 = new PacMan(555, 445, 0, 0, 0, up, down, left, t1img, closed);
+
+        ghost1 = new Enemy(SCREEN_WIDTH / 3 + 90, 350, 0, 0, 0, enemy1_up, enemy1_down, enemy1_left, enemy1_right);
+        ghost2 = new Enemy(SCREEN_WIDTH / 3 + 150, 350, 0, 0, 0, enemy2_up, enemy2_down, enemy2_left, enemy2_right);
+        ghost3 = new Enemy(SCREEN_WIDTH / 3 + 210, 350, 0, 0, 0, enemy3_up, enemy3_down, enemy3_left, enemy3_right);
+        ghost4 = new Enemy(SCREEN_WIDTH / 3 + 270, 350, 0, 0, 0, enemy4_up, enemy4_down, enemy4_left, enemy4_right);
 
         map = new GameMap();
 
@@ -95,7 +124,6 @@ public class GameWorld extends JPanel  {
         this.jf.setLayout(new BorderLayout());
         this.jf.add(this);
 
-
         this.jf.addKeyListener(tc1);
 
         this.jf.setSize(SCREEN_WIDTH, SCREEN_HEIGHT + 30);
@@ -104,14 +132,11 @@ public class GameWorld extends JPanel  {
 
         this.jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.jf.setVisible(true);
-
     }
 
     private void update(){
         p1.update();
-
         map.handleCollision(p1);
-
     }
 
 
@@ -132,24 +157,33 @@ public class GameWorld extends JPanel  {
 
         this.p1.drawImage(buffer);
 
-        int location;
-        int placement;
-        for(int i=1; i <= p1.getLives(); i++){
-            location = (life.getImg().getWidth() + 40) * i;
-            placement = location / 2;
-            g2.drawImage(life.getImg(), placement, 10, null);
-        }
-
-        g2.setColor(Color.GREEN);
-        g2.fillRect(SCREEN_WIDTH / 4, 30, 2* p1.getCurrentHealth(), 20);
+        this.ghost1.drawImage(buffer);
+        this.ghost2.drawImage(buffer);
+        this.ghost3.drawImage(buffer);
+        this.ghost4.drawImage(buffer);
 
         if(p1.getLives() == 0){
             gameOver = true;
         }
 
         g2.drawImage(world,0,0,null);
+        g2.setColor(Color.white);
+        g2.setFont(new Font("Helvetica", Font.BOLD, 20));
+        g2.drawString("SCORE: " + String.valueOf(p1.getScore()), SCREEN_WIDTH - 300, 30);
 
+        /**
+         * Display player's life count
+         */
+        int location;
+        int placement;
+        for(int i=1; i <= p1.getLives(); i++){
+            location = (life.getImg().getWidth() + 50) * i;
+            placement = location / 2;
+            g2.drawImage(life.getImg(), placement + 70, 10, null);
         }
+
+    }
+
 
 
 }

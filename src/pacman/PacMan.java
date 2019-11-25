@@ -2,6 +2,8 @@ package pacman;
 
 
 
+import pacman.powerup.PacDots;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -16,10 +18,10 @@ public class PacMan implements CollidableObject {
     private int vx;
     private int vy;
     private int angle;
+    private int score;
     private Rectangle r;
 
-    private int R = 3;
-    private int currentHealth = 100;
+    private int R = 12;
     private int lives = 3;
 
     private BufferedImage img;
@@ -27,13 +29,14 @@ public class PacMan implements CollidableObject {
     private BufferedImage pacRight;
     private BufferedImage pacDown;
     private BufferedImage pacUp;
+    private BufferedImage pacClosed;
     private boolean UpPressed;
     private boolean DownPressed;
     private boolean RightPressed;
     private boolean LeftPressed;
 
 
-    PacMan(int x, int y, int vx, int vy, int angle, BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right) {
+    PacMan(int x, int y, int vx, int vy, int angle, BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right, BufferedImage closed) {
         this.x = x;
         this.y = y;
         this.vx = vx;
@@ -41,56 +44,42 @@ public class PacMan implements CollidableObject {
         this.img = right;
         this.angle = angle;
         this.r = new Rectangle(x, y, img.getWidth(), img.getHeight());
-        loadImages(up, down, left, right);
+        this.score = 0;
+        loadImages(up, down, left, right, closed);
     }
 
-    private void loadImages(BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right){
+    private void loadImages(BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right, BufferedImage closed){
         this.pacUp = up;
         this.pacDown = down;
         this.pacLeft = left;
         this.pacRight = right;
+        this.pacClosed = closed;
     }
 
     public int getX() { return x; }
 
     public int getY() { return y; }
 
-    public void setSpeed(int value) { this.R+=value; }
+    public void addPoints(int value) { this.score += value; }
 
-    public void collided(int value){
-        if(currentHealth - value <= 0){
-            currentHealth = 0;
-            removeLife();
-        }
-        else
-            currentHealth -= value;
+    public void setSpeed(int value) { this.R += value; }
+
+    public void collided(){
+        removeLife();
     }
 
     public void setImg(BufferedImage img) {
         this.img = img;
     }
 
-    public void powerHealth(int value){
-        if(currentHealth + value >= 100)
-            currentHealth = 100;
-        else
-            currentHealth += value;
-    }
-
-    public int getCurrentHealth() { return currentHealth; }
-
-
     public void addLife() { this.lives += 1; }
 
     public int getLives() { return this.lives; }
 
+    public int getScore() { return this.score; }
+
     public void removeLife() {
-        if(lives == 0){
-            currentHealth = 0;
-        } else {
-            lives -= 1;
-            powerHealth(100);
-        }
+        this.lives -= 1;
     }
 
     void toggleUpPressed() {
@@ -131,16 +120,20 @@ public class PacMan implements CollidableObject {
     public void update() {
         if (this.UpPressed) {
             this.moveUp();
+            unToggleUpPressed();
         }
         if (this.DownPressed) {
             this.moveDown();
+            unToggleDownPressed();
         }
 
         if (this.LeftPressed) {
             this.moveLeft();
+            unToggleLeftPressed();
         }
         if (this.RightPressed) {
             this.moveRight();
+            unToggleRightPressed();
         }
     }
 
@@ -160,7 +153,6 @@ public class PacMan implements CollidableObject {
         vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
         x += vx;
         y += vy;
-
         checkBorder();
     }
 
@@ -186,8 +178,10 @@ public class PacMan implements CollidableObject {
     @Override
     public void checkCollision(CollidableObject c) {
         if(this.getRectangle().intersects(c.getRectangle())){
-            if(c instanceof Bullet){
-                collided(10);
+            if(c instanceof PacDots){
+                this.setImg(pacClosed);
+            } else if(c instanceof Enemy) {
+                this.removeLife();
             } else {
                 Rectangle intersection = this.getRectangle().intersection(c.getRectangle());
                 if(intersection.height > intersection.width  && this.x < intersection.x){ //left

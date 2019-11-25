@@ -6,13 +6,13 @@ import pacman.PacMan;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class ExtraLife extends PowerUp {
+public class PacDots extends PowerUp{
     private int x, y;
     private Rectangle r;
     private static BufferedImage img;
     private boolean collided = false;
 
-    public ExtraLife(int x, int y){
+    public PacDots(int x, int y){
         this.x = x;
         this.y = y;
         this.r = new Rectangle(x, y, img.getWidth(), img.getHeight());
@@ -21,7 +21,7 @@ public class ExtraLife extends PowerUp {
     public static BufferedImage getImg() { return img; }
 
     public static void setImg(BufferedImage img){
-        ExtraLife.img = img;
+        PacDots.img = img;
     }
 
 
@@ -30,13 +30,12 @@ public class ExtraLife extends PowerUp {
         if(c instanceof PacMan){
             if(this.getRectangle().intersects(c.getRectangle())){
                 collided = true;
-                ((PacMan) c).addLife();
+                ((PacMan) c).addPoints(100);
             }
         }
     }
 
     public boolean hasCollided() { return collided; }
-
 
     @Override
     public Rectangle getRectangle() {
@@ -46,5 +45,4 @@ public class ExtraLife extends PowerUp {
     public void drawImage(Graphics2D buffer){
         buffer.drawImage(img, x, y, null);
     }
-
 }

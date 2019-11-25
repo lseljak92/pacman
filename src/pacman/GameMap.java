@@ -1,6 +1,7 @@
 package pacman;
 
 import pacman.powerup.ExtraLife;
+import pacman.powerup.PacDots;
 import pacman.powerup.PowerUp;
 import pacman.powerup.SpeedBoost;
 import pacman.walls.UnbreakableWall;
@@ -49,18 +50,50 @@ public class GameMap {
             walls.add(new UnbreakableWall(i, height/2+30));
         }
 
+        /**
+         * Set up middle area (enemies' starting point)
+         */
+        for(int i = width / 3; i < width/3 + 145; i++){
+            walls.add(new UnbreakableWall(i, 300));
+        }
+
+        for(int i = width - width/3; i > width - width/3 - 145; i--){
+            walls.add(new UnbreakableWall(i, 300));
+        }
+
+        for(int i = width / 3; i < width - width/3; i++){
+            walls.add(new UnbreakableWall(i, 425));
+        }
+
+        for(int i = 300; i < 425; i++){
+            walls.add(new UnbreakableWall(width/3, i));
+            walls.add(new UnbreakableWall(width-width/3, i));
+        }
+
+
+        /**
+         * Add collectible PacDots
+         */
+        for(int i = 150; i < width - 130; i+=45){
+            powerUps.add(new PacDots(i, 80));
+            powerUps.add(new PacDots(i, height - 45));
+        }
+
+        for(int i = 80; i < height - 70; i+=45) {
+            powerUps.add(new PacDots(150, i));
+            powerUps.add(new PacDots(width - 165, i));
+        }
+
     }
 
     public void handleCollision(CollidableObject c) {
         for(int i = 0; i < walls.size(); i++){
             c.checkCollision(walls.get(i));
             walls.get(i).checkCollision(c);
-            if(walls.get(i).hasCollided()){
-                walls.remove(i);
-            }
         }
         for(int i = 0; i < powerUps.size(); i++){
             powerUps.get(i).checkCollision(c);
+            c.checkCollision(powerUps.get(i));
             if(powerUps.get(i).hasCollided()){
                 powerUps.remove(i);
             }
