@@ -136,6 +136,11 @@ public class GameWorld extends JPanel  {
 
     private void update(){
         p1.update();
+        p1.checkCollision(ghost1);
+        p1.checkCollision(ghost2);
+        p1.checkCollision(ghost3);
+        p1.checkCollision(ghost4);
+
         map.handleCollision(p1);
     }
 

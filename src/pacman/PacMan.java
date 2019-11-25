@@ -180,9 +180,7 @@ public class PacMan implements CollidableObject {
         if(this.getRectangle().intersects(c.getRectangle())){
             if(c instanceof PacDots){
                 this.setImg(pacClosed);
-            } else if(c instanceof Enemy) {
-                this.removeLife();
-            } else {
+            }else {
                 Rectangle intersection = this.getRectangle().intersection(c.getRectangle());
                 if(intersection.height > intersection.width  && this.x < intersection.x){ //left
                     x-= intersection.width/2;

@@ -5,8 +5,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class Enemy implements CollidableObject {
-    private static BufferedImage ghostImg;
-    private BufferedImage explosion;
     private final int R = 5;
     private int x, y, angle, vx, vy;
     private BufferedImage img;
@@ -44,10 +42,6 @@ public class Enemy implements CollidableObject {
 
     }
 
-    public static void setImg(BufferedImage img){
-        ghostImg = img;
-    }
-
     public boolean hasCollided() {
         return collided;
     }
@@ -55,6 +49,9 @@ public class Enemy implements CollidableObject {
     @Override
     public void checkCollision(CollidableObject c) {
         if(this.getRectangle().intersects(c.getRectangle())){
+            if(c instanceof PacMan){
+                ((PacMan) c).removeLife();
+            }
             collided = true;
         }
     }
@@ -69,6 +66,6 @@ public class Enemy implements CollidableObject {
 
     @Override
     public Rectangle getRectangle() {
-        return new Rectangle(x, y, ghostImg.getWidth(), ghostImg.getHeight());
+        return new Rectangle(x, y, img.getWidth(), img.getHeight());
     }
 }
