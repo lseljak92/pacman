@@ -44,7 +44,6 @@ public class GameMap {
             walls.add(new UnbreakableWall(i, height/2-45));
             walls.add(new UnbreakableWall(i, height/2+30));
         }
-
         for(int i = width - 120; i < width; i+=15){
             walls.add(new UnbreakableWall(i, height/2-45));
             walls.add(new UnbreakableWall(i, height/2+30));
@@ -53,35 +52,69 @@ public class GameMap {
         /**
          * Set up middle area (enemies' starting point)
          */
-        for(int i = width / 3; i < width/3 + 145; i++){
+        for(int i = width / 3; i < width/3 + 145; i+=15){
             walls.add(new UnbreakableWall(i, 300));
         }
 
-        for(int i = width - width/3; i > width - width/3 - 145; i--){
+        for(int i = width - width/3; i > width - width/3 - 145; i-=15){
             walls.add(new UnbreakableWall(i, 300));
         }
 
-        for(int i = width / 3; i < width - width/3; i++){
-            walls.add(new UnbreakableWall(i, 425));
+        for(int i = width / 3; i <= width - width/3; i+=15){
+            walls.add(new UnbreakableWall(i, 420));
+            walls.add(new UnbreakableWall(i, 235));
         }
-
-        for(int i = 300; i < 425; i++){
+        for(int i = 300; i <= 420; i+=15){
             walls.add(new UnbreakableWall(width/3, i));
-            walls.add(new UnbreakableWall(width-width/3, i));
+            walls.add(new UnbreakableWall(width - width/3, i));
         }
 
+        /**
+         * Create inner maze walls
+         */
+        for(int i = 175; i < width/3; i+=15){
+            walls.add(new UnbreakableWall(i, 115));
+            walls.add(new UnbreakableWall(i, height - 90));
+        }
+        for(int i = 130; i < 240; i+=15){
+            walls.add(new UnbreakableWall(175, i));
+            walls.add(new UnbreakableWall(width - 195, i));
+        }
+        for(int i = 175; i < 230; i++){
+            walls.add(new UnbreakableWall(i,240));
+        }
+        for(int i = width - 195; i > width - 400; i-=15){
+            walls.add(new UnbreakableWall(i, 115));
+            walls.add(new UnbreakableWall(i, height - 90));
+        }
+        for(int i = height - height/3 + 70; i < height - 90; i+=15){
+            walls.add(new UnbreakableWall(175, i));
+            walls.add(new UnbreakableWall(width - 195, i));
+        }
+        for(int i = height/3; i < height - height/3; i+=15){
+            walls.add(new UnbreakableWall(175, i));
+            walls.add(new UnbreakableWall(width - 195, i));
+        }
+        for(int i = width / 4 - 25; i <= width - width/4 + 25; i+=15){
+            walls.add(new UnbreakableWall(i,175));
+            walls.add(new UnbreakableWall(i, 495));
+            walls.add(new UnbreakableWall(i, height-160));
+        }
+        for(int i = 175; i < 425; i+=15){
+            walls.add(new UnbreakableWall(width/4 + 25, i));
+            walls.add(new UnbreakableWall(width - width/4 - 25, i));
+        }
 
         /**
          * Add collectible PacDots
          */
-        for(int i = 150; i < width - 130; i+=45){
+        for(int i = 180; i < width - 175; i+=50){
             powerUps.add(new PacDots(i, 80));
-            powerUps.add(new PacDots(i, height - 45));
+            powerUps.add(new PacDots(i, height - 55));
         }
-
-        for(int i = 80; i < height - 70; i+=45) {
-            powerUps.add(new PacDots(150, i));
-            powerUps.add(new PacDots(width - 165, i));
+        for(int i = 120; i < height - 70; i+=45) {
+            powerUps.add(new PacDots(140, i));
+            powerUps.add(new PacDots(width - 160, i));
         }
 
     }
@@ -89,7 +122,6 @@ public class GameMap {
     public void handleCollision(CollidableObject c) {
         for(int i = 0; i < walls.size(); i++){
             c.checkCollision(walls.get(i));
-            walls.get(i).checkCollision(c);
         }
         for(int i = 0; i < powerUps.size(); i++){
             powerUps.get(i).checkCollision(c);

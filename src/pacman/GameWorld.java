@@ -108,7 +108,7 @@ public class GameWorld extends JPanel  {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        p1 = new PacMan(555, 445, 0, 0, 0, up, down, left, t1img, closed);
+        p1 = new PacMan(555, 440, 0, 0, 0, up, down, left, t1img, closed);
 
         ghost1 = new Enemy(SCREEN_WIDTH / 3 + 90, 350, 0, 0, 0, enemy1_up, enemy1_down, enemy1_left, enemy1_right);
         ghost2 = new Enemy(SCREEN_WIDTH / 3 + 150, 350, 0, 0, 0, enemy2_up, enemy2_down, enemy2_left, enemy2_right);
