@@ -54,20 +54,24 @@ public class GameWorld extends JPanel  {
         this.jf = new JFrame("PacMan");
 
         this.world = new BufferedImage(GameWorld.SCREEN_WIDTH, GameWorld.SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
-        BufferedImage t1img=null, backgroundImg;
+        BufferedImage t1img=null, left = null, up = null, down = null, backgroundImg;
 
         try {
             BufferedImage tmp;
 
-            t1img = read(new File("resources/pac_left.png"));
+            t1img = read(new File("resources/pac_right.png"));
+
+            left = read(new File("resources/pac_left.png"));
+
+            up = read(new File("resources/pac_up.png"));
+
+            down = read(new File("resources/pac_down.png"));
 
             backgroundImg = read(new File("resources/background.png"));
 
             background = new Background(backgroundImg);
 
             UnbreakableWall.setImg(read(new File("resources/tile.png")));
-
-            //Bullet.setImg(ImageIO.read(getClass().getResource("/resources/Weapon.gif")));
 
             ExtraLife.setImg(read(new File("resources/pear.png")));
 
@@ -80,7 +84,7 @@ public class GameWorld extends JPanel  {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        p1 = new PacMan(555, 473, 0, 0, 0, t1img);
+        p1 = new PacMan(555, 473, 0, 0, 0, up, down, left, t1img);
 
         map = new GameMap();
 

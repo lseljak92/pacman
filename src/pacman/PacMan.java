@@ -5,6 +5,7 @@ package pacman;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 
@@ -22,21 +23,32 @@ public class PacMan implements CollidableObject {
     private int lives = 3;
 
     private BufferedImage img;
+    private BufferedImage pacLeft;
+    private BufferedImage pacRight;
+    private BufferedImage pacDown;
+    private BufferedImage pacUp;
     private boolean UpPressed;
     private boolean DownPressed;
     private boolean RightPressed;
     private boolean LeftPressed;
 
 
-    PacMan(int x, int y, int vx, int vy, int angle, BufferedImage img) {
+    PacMan(int x, int y, int vx, int vy, int angle, BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right) {
         this.x = x;
         this.y = y;
         this.vx = vx;
         this.vy = vy;
-        this.img = img;
+        this.img = right;
         this.angle = angle;
         this.r = new Rectangle(x, y, img.getWidth(), img.getHeight());
+        loadImages(up, down, left, right);
+    }
 
+    private void loadImages(BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right){
+        this.pacUp = up;
+        this.pacDown = down;
+        this.pacLeft = left;
+        this.pacRight = right;
     }
 
     public int getX() { return x; }
@@ -133,6 +145,7 @@ public class PacMan implements CollidableObject {
     }
 
     private void moveLeft() {
+        this.setImg(pacLeft);
         vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
         vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
         x -= vx;
@@ -142,6 +155,7 @@ public class PacMan implements CollidableObject {
     }
 
     private void moveRight() {
+        this.setImg(pacRight);
         vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
         vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
         x += vx;
@@ -151,6 +165,7 @@ public class PacMan implements CollidableObject {
     }
 
     private void moveDown() {
+        this.setImg(pacDown);
         vx = (int) Math.round(R * Math.cos(Math.toRadians(90)));
         vy = (int) Math.round(R * Math.sin(Math.toRadians(90)));
         x += vx;
@@ -159,6 +174,7 @@ public class PacMan implements CollidableObject {
     }
 
     private void moveUp() {
+        this.setImg(pacUp);
         vx = (int) Math.round(R * Math.cos(Math.toRadians(90)));
         vy = (int) Math.round(R * Math.sin(Math.toRadians(90)));
         x -= vx;
