@@ -177,20 +177,25 @@ public class PacMan implements CollidableObject {
         if(this.getRectangle().intersects(c.getRectangle())){
             if(c instanceof PacDots){
                 this.setImg(pacClosed);
-            }else {
-                Rectangle intersection = this.getRectangle().intersection(c.getRectangle());
-                if(intersection.height > intersection.width  && this.x < intersection.x){ //left
-                    x-= intersection.width/2;
-                }
-                else if(intersection.height > intersection.width  && this.x > c.getRectangle().x){ //right
-                    x+= intersection.width/2;
-                }
-                else if(intersection.height < intersection.width  && this.y < intersection.y){ //up
-                    y-= intersection.height/2;
-                }
-                else if(intersection.height < intersection.width  && this.y > c.getRectangle().y){ //down
-                    y+= intersection.height/2;
-                }
+            }else if(c instanceof Enemy) {
+                this.removeLife();
+                this.x = 550;
+                this.y = 440;
+                setImg(pacRight);
+            } else {
+                    Rectangle intersection = this.getRectangle().intersection(c.getRectangle());
+                    if(intersection.height > intersection.width  && this.x < intersection.x){ //left
+                        x-= intersection.width/2;
+                    }
+                    else if(intersection.height > intersection.width  && this.x > c.getRectangle().x){ //right
+                        x+= intersection.width/2;
+                    }
+                    else if(intersection.height < intersection.width  && this.y < intersection.y){ //up
+                        y-= intersection.height/2;
+                    }
+                    else if(intersection.height < intersection.width  && this.y > c.getRectangle().y){ //down
+                        y+= intersection.height/2;
+                    }
             }
         }
     }
