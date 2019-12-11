@@ -52,39 +52,40 @@ public class GameMap {
         /**
          * Set up middle area (enemies' starting point)
          */
-        for(int i = width / 3; i < width/3 + 145; i+=15){
+        for(int i = 335; i < width/3 + 110; i+=15){
             walls.add(new UnbreakableWall(i, 300));
         }
 
-        for(int i = width - width/3; i > width - width/3 - 145; i-=15){
+        for(int i = width - 350; i > width - width/3 - 130; i-=15){
             walls.add(new UnbreakableWall(i, 300));
         }
 
-        for(int i = width / 3; i <= width - width/3; i+=15){
+        for(int i = 335; i <= width - 350; i+=15){
             walls.add(new UnbreakableWall(i, 420));
-            walls.add(new UnbreakableWall(i, 235));
         }
+
         for(int i = 300; i <= 420; i+=15){
-            walls.add(new UnbreakableWall(width/3, i));
-            walls.add(new UnbreakableWall(width - width/3, i));
+            walls.add(new UnbreakableWall(335, i));
+            walls.add(new UnbreakableWall(width - 350, i));
         }
 
         /**
          * Create inner maze walls
          */
         for(int i = 175; i < width/3; i+=15){
-            walls.add(new UnbreakableWall(i, 115));
+            walls.add(new UnbreakableWall(i, 110));
             walls.add(new UnbreakableWall(i, height - 90));
         }
-        for(int i = 130; i < 240; i+=15){
+        for(int i = width / 3 + 80; i < width - width / 3 - 90; i+=15){
+            walls.add(new UnbreakableWall(i, 110));
+            walls.add(new UnbreakableWall(i, height - 90));
+        }
+        for(int i = 110; i < 240; i+=15){
             walls.add(new UnbreakableWall(175, i));
             walls.add(new UnbreakableWall(width - 195, i));
         }
-        for(int i = 175; i < 230; i++){
-            walls.add(new UnbreakableWall(i,240));
-        }
         for(int i = width - 195; i > width - 400; i-=15){
-            walls.add(new UnbreakableWall(i, 115));
+            walls.add(new UnbreakableWall(i, 110));
             walls.add(new UnbreakableWall(i, height - 90));
         }
         for(int i = height - height/3 + 70; i < height - 90; i+=15){
@@ -95,14 +96,32 @@ public class GameMap {
             walls.add(new UnbreakableWall(175, i));
             walls.add(new UnbreakableWall(width - 195, i));
         }
-        for(int i = width / 4 - 25; i <= width - width/4 + 25; i+=15){
+        for(int i = width / 4 - 25; i <= width - width/4 + 10; i+=15){
             walls.add(new UnbreakableWall(i,175));
             walls.add(new UnbreakableWall(i, 495));
             walls.add(new UnbreakableWall(i, height-160));
         }
+        for(int i = 570; i < height - 160; i += 15) {
+            walls.add(new UnbreakableWall(width / 4 - 25, i));
+            walls.add(new UnbreakableWall(width - width/4, i));
+        }
         for(int i = 175; i < 425; i+=15){
-            walls.add(new UnbreakableWall(width/4 + 25, i));
-            walls.add(new UnbreakableWall(width - width/4 - 25, i));
+            walls.add(new UnbreakableWall(width/4-25, i));
+            walls.add(new UnbreakableWall(width - width/4 +12, i));
+        }
+        for(int i = 335; i <= width - 350; i+=15){
+            walls.add(new UnbreakableWall(i, 235));
+            walls.add(new UnbreakableWall(i, 570));
+            walls.add(new UnbreakableWall(i, height - 235));
+        }
+        for(int i = 420; i <= width - 430; i+=15){
+            walls.add(new UnbreakableWall(i, height - 305));
+        }
+        for(int i = 570; i < height - 305; i+=15) {
+            walls.add(new UnbreakableWall(335, i));
+        }
+        for(int i = 570; i < height - 305; i+=15) {
+            walls.add(new UnbreakableWall(width - 350, i));
         }
 
         /**
@@ -116,7 +135,42 @@ public class GameMap {
             powerUps.add(new PacDots(140, i));
             powerUps.add(new PacDots(width - 160, i));
         }
-
+        for (int i = 250; i < 525; i+=50) {
+            powerUps.add(new PacDots(i, 455));
+        }
+        for(int i = 250; i < width - 250; i+=50){
+            powerUps.add(new PacDots(i, 140));
+            powerUps.add(new PacDots(i, height - 125));
+        }
+        for(int i = 140; i < height - 120; i+=50){
+            powerUps.add(new PacDots(215, i));
+            powerUps.add(new PacDots(width - 230, i));
+        }
+        for (int i = 625; i < width - 250; i+=50) {
+            powerUps.add(new PacDots(i, 455));
+        }
+        for(int i = 214; i < 430; i+=50){
+            powerUps.add(new PacDots(300,i));
+            powerUps.add(new PacDots(width - 305, i));
+        }
+        for(int i = 350; i < width-325; i+=50){
+            powerUps.add(new PacDots(i,205));
+            powerUps.add(new PacDots(i,265));
+        }
+        for(int i = 250; i < width -250; i +=50) {
+            powerUps.add(new PacDots(i, 530));
+        }
+        for(int i = 300; i < width -300; i +=50) {
+            powerUps.add(new PacDots(i, 745));
+        }
+        for(int i = 580; i < 715; i += 50) {
+            powerUps.add(new PacDots(300, i));
+            powerUps.add(new PacDots(width - 320, i));
+        }
+        for(int i = 380; i < width - 350; i += 50) {
+            powerUps.add(new PacDots(i, height - 340));
+            powerUps.add(new PacDots(i, height - 270));
+        }
     }
 
     public void handleCollision(CollidableObject c) {

@@ -1,14 +1,11 @@
 package pacman;
 
 
-
 import pacman.powerup.PacDots;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
-import java.util.ArrayList;
 
 
 public class PacMan implements CollidableObject {
