@@ -1,6 +1,7 @@
 package pacman;
 
 import pacman.powerup.PacDots;
+import pacman.powerup.PowerUp;
 import pacman.walls.Wall;
 
 import java.awt.*;
@@ -20,9 +21,11 @@ public class Enemy implements CollidableObject {
     private BufferedImage ghostRight;
     private BufferedImage ghostDown;
     private Rectangle rectangle;
+    private boolean status = false;
+    public static boolean move = false;
     private boolean collided = false;
 
-    Enemy(int x, int y, int vx, int vy, int angle, BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right) {
+    Enemy(int x, int y, int vx, int vy, int angle, BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right, BufferedImage dead) {
         this.x = x;
         this.y = y;
         this.vx = vx;
@@ -31,10 +34,10 @@ public class Enemy implements CollidableObject {
         this.angle = angle;
         this.rectangle = new Rectangle(x, y, img.getWidth(), img.getHeight());
         num = r.nextInt(3);
-        loadImages(up, down, left, right);
+        loadImages(up, down, left, right, dead);
     }
 
-    private void loadImages(BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right){
+    private void loadImages(BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right, BufferedImage dead){
         this.ghostUp = up;
         this.ghostDown = down;
         this.ghostLeft = left;
@@ -50,8 +53,8 @@ public class Enemy implements CollidableObject {
 
     }
 
-    public boolean hasCollided() {
-        return collided;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setImg(BufferedImage img) {
@@ -61,9 +64,9 @@ public class Enemy implements CollidableObject {
     @Override
     public void checkCollision(CollidableObject c) {
         if(this.getRectangle().intersects(c.getRectangle())){
-            if(c instanceof PacMan){
+            if(!status && c instanceof PacMan){
                 ((PacMan) c).removeLife();
-            } else if (c instanceof Enemy || c instanceof PacDots) {
+            } else if (c instanceof Enemy || c instanceof PowerUp) {
                 collided = false;
             } else {
                 Rectangle intersection = this.getRectangle().intersection(c.getRectangle());
@@ -72,18 +75,16 @@ public class Enemy implements CollidableObject {
                     collided = true;
                 }
                 else if(intersection.height > intersection.width  && this.x > c.getRectangle().x){ //right
-                    x+= intersection.width+5;
+                    x+= intersection.width + 5;
                     collided = true;
                 }
                 else if(intersection.height < intersection.width  && this.y < intersection.y){ //up
-                    y-= intersection.height+5;
+                    y-= intersection.height + 5;
                     collided = true;
                 }
                 else if(intersection.height < intersection.width  && this.y > c.getRectangle().y){ //down
-                    y+= intersection.height+5;
+                    y+= intersection.height + 5;
                     collided = true;
-                } else if(this.x == 325) {
-                    num = 2;
                 } else {
                     collided = false;
                 }
@@ -128,9 +129,12 @@ public class Enemy implements CollidableObject {
     }
 
     public void update(){
-        moveGhosts();
+        if(move) {
+            moveGhosts();
+        }
     }
 
+    public static void setMoveStatus(boolean moveStatus) { move = moveStatus; }
 
     @Override
     public Rectangle getRectangle() {

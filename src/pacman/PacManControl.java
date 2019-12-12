@@ -34,6 +34,7 @@ public class PacManControl implements KeyListener {
     @Override
     public void keyPressed(KeyEvent ke) {
         int keyPressed = ke.getKeyCode();
+        Enemy.setMoveStatus(true);
         if (keyPressed == up) {
             this.player.toggleUpPressed();
         }

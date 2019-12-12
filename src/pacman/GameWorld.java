@@ -5,9 +5,8 @@
  */
 package pacman;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import pacman.powerup.PacDots;
+import pacman.powerup.PowerBall;
 import pacman.powerup.SpeedBoost;
 import pacman.walls.UnbreakableWall;
 import pacman.powerup.ExtraLife;
@@ -66,6 +65,7 @@ public class GameWorld extends JPanel  {
         BufferedImage enemy1_down = null, enemy2_down = null, enemy3_down = null, enemy4_down = null;
         BufferedImage enemy1_left = null, enemy2_left = null, enemy3_left = null, enemy4_left = null;
         BufferedImage enemy1_right = null, enemy2_right = null, enemy3_right = null, enemy4_right = null;
+        BufferedImage enemy_dead = null;
 
         try {
             BufferedImage tmp;
@@ -96,10 +96,12 @@ public class GameWorld extends JPanel  {
             enemy4_left = read(new File("resources/purple_left.png"));
             enemy4_right = read(new File("resources/purple_right.png"));
 
+            enemy_dead = read(new File("resources/off_ghost.png"));
             backgroundImg = read(new File("resources/background.png"));
             background = new Background(backgroundImg);
             UnbreakableWall.setImg(read(new File("resources/tile.png")));
             PacDots.setImg(read(new File("resources/collectible_small.png")));
+            PowerBall.setImg(read(new File("resources/collectible_large.png")));
             ExtraLife.setImg(read(new File("resources/life.png")));
             SpeedBoost.setImg(read(new File("resources/cherry.png")));
 
@@ -112,10 +114,10 @@ public class GameWorld extends JPanel  {
         }
         p1 = new PacMan(550, 440, 0, 0, 0, up, down, left, t1img, closed);
 
-        ghost1 = new Enemy(SCREEN_WIDTH / 3 + 90, 350, 0, 0, 0, enemy1_up, enemy1_down, enemy1_left, enemy1_right);
-        ghost2 = new Enemy(SCREEN_WIDTH / 3 + 150, 350, 0, 0, 0, enemy2_up, enemy2_down, enemy2_left, enemy2_right);
-        ghost3 = new Enemy(SCREEN_WIDTH / 3 + 210, 350, 0, 0, 0, enemy3_up, enemy3_down, enemy3_left, enemy3_right);
-        ghost4 = new Enemy(SCREEN_WIDTH / 3 + 270, 350, 0, 0, 0, enemy4_up, enemy4_down, enemy4_left, enemy4_right);
+        ghost1 = new Enemy(SCREEN_WIDTH / 3 + 90, 350, 0, 0, 0, enemy1_up, enemy1_down, enemy1_left, enemy1_right, enemy_dead);
+        ghost2 = new Enemy(SCREEN_WIDTH / 3 + 150, 350, 0, 0, 0, enemy2_up, enemy2_down, enemy2_left, enemy2_right, enemy_dead);
+        ghost3 = new Enemy(SCREEN_WIDTH / 3 + 210, 350, 0, 0, 0, enemy3_up, enemy3_down, enemy3_left, enemy3_right, enemy_dead);
+        ghost4 = new Enemy(SCREEN_WIDTH / 3 + 270, 350, 0, 0, 0, enemy4_up, enemy4_down, enemy4_left, enemy4_right, enemy_dead);
 
         map = new GameMap();
 

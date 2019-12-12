@@ -1,9 +1,6 @@
 package pacman;
 
-import pacman.powerup.ExtraLife;
-import pacman.powerup.PacDots;
-import pacman.powerup.PowerUp;
-import pacman.powerup.SpeedBoost;
+import pacman.powerup.*;
 import pacman.walls.UnbreakableWall;
 import pacman.walls.Wall;
 
@@ -52,11 +49,11 @@ public class GameMap {
         /**
          * Set up middle area (enemies' starting point)
          */
-        for(int i = 335; i < width/3 + 110; i+=15){
+        for(int i = 400; i < width/3 + 110; i+=15){
             walls.add(new UnbreakableWall(i, 300));
         }
 
-        for(int i = width - 350; i > width - width/3 - 130; i-=15){
+        for(int i = width - 425; i > width - width/3 - 130; i-=15){
             walls.add(new UnbreakableWall(i, 300));
         }
 
@@ -131,6 +128,15 @@ public class GameMap {
             powerUps.add(new PacDots(i, 80));
             powerUps.add(new PacDots(i, height - 55));
         }
+        /**
+         * Add power ball on screen corners
+         */
+        powerUps.add(new PowerBall(138, 78));                    // upper left
+        powerUps.add(new PowerBall(width - 164, 78));            // upper right
+        powerUps.add(new PowerBall(138, height - 60));           // lower left
+        powerUps.add(new PowerBall(width - 164, height - 60));   // lower right
+
+
         for(int i = 120; i < height - 70; i+=45) {
             powerUps.add(new PacDots(140, i));
             powerUps.add(new PacDots(width - 160, i));
@@ -163,6 +169,13 @@ public class GameMap {
         for(int i = 300; i < width -300; i +=50) {
             powerUps.add(new PacDots(i, 745));
         }
+
+        /**
+         * Add power ball bonus
+         */
+        powerUps.add(new PowerBall(210, height - 128));
+        powerUps.add(new PowerBall(width - 233, height - 128));
+
         for(int i = 580; i < 715; i += 50) {
             powerUps.add(new PacDots(300, i));
             powerUps.add(new PacDots(width - 320, i));
