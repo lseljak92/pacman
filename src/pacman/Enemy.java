@@ -1,8 +1,6 @@
 package pacman;
 
-import pacman.powerup.PacDots;
 import pacman.powerup.PowerUp;
-import pacman.walls.Wall;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -20,12 +18,15 @@ public class Enemy implements CollidableObject {
     private BufferedImage ghostUp;
     private BufferedImage ghostRight;
     private BufferedImage ghostDown;
+    private BufferedImage ghostDead;
+    private BufferedImage eyes;
     private Rectangle rectangle;
-    private boolean status = false;
-    public static boolean move = false;
+    private static boolean dead = false;
+    private static boolean move = false;
     private boolean collided = false;
+    private boolean caught = false;
 
-    Enemy(int x, int y, int vx, int vy, int angle, BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right, BufferedImage dead) {
+    Enemy(int x, int y, int vx, int vy, int angle, BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right, BufferedImage ghostDead, BufferedImage eyes) {
         this.x = x;
         this.y = y;
         this.vx = vx;
@@ -34,14 +35,16 @@ public class Enemy implements CollidableObject {
         this.angle = angle;
         this.rectangle = new Rectangle(x, y, img.getWidth(), img.getHeight());
         num = r.nextInt(3);
-        loadImages(up, down, left, right, dead);
+        loadImages(up, down, left, right, ghostDead, eyes);
     }
 
-    private void loadImages(BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right, BufferedImage dead){
+    private void loadImages(BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right, BufferedImage ghostDead, BufferedImage eyes){
         this.ghostUp = up;
         this.ghostDown = down;
         this.ghostLeft = left;
         this.ghostRight = right;
+        this.ghostDead = ghostDead;
+        this.eyes = eyes;
     }
 
     public void drawImage(Graphics g){
@@ -50,11 +53,14 @@ public class Enemy implements CollidableObject {
         AffineTransform rotation = AffineTransform.getTranslateInstance(x, y);
         rotation.rotate(Math.toRadians(angle), this.img.getWidth() / 2.0, this.img.getHeight() / 2.0);
         g2d.drawImage(this.img, rotation, null);
-
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public static void setStatus(boolean updateStatus) {
+        dead = updateStatus;
+    }
+
+    public static boolean getStatus() {
+        return dead;
     }
 
     public void setImg(BufferedImage img) {
@@ -64,9 +70,14 @@ public class Enemy implements CollidableObject {
     @Override
     public void checkCollision(CollidableObject c) {
         if(this.getRectangle().intersects(c.getRectangle())){
-            if(!status && c instanceof PacMan){
-                ((PacMan) c).removeLife();
-            } else if (c instanceof Enemy || c instanceof PowerUp) {
+            if(c instanceof PacMan){
+                if(!dead)
+                    ((PacMan) c).removeLife();
+                else if(dead) {
+                    collided = true;
+                    caught = true;
+                }
+            }  else if (c instanceof Enemy || c instanceof PowerUp) {
                 collided = false;
             } else {
                 Rectangle intersection = this.getRectangle().intersection(c.getRectangle());
@@ -102,25 +113,33 @@ public class Enemy implements CollidableObject {
 
     private void moveGhosts() {
         if(num == 0) {
-            this.setImg(ghostRight);
+            if(!dead) { this.setImg(ghostRight); }
+            else if(dead && caught) { this.setImg(eyes);}
+            else { this.setImg(ghostDead); }
             vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
             vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
             x += vx;
             y += vy;
         } else if (num == 1) {
-            this.setImg(ghostDown);
+            if(!dead) { this.setImg(ghostDown); }
+            else if(dead && caught) { this.setImg(eyes);}
+            else { this.setImg(ghostDead); }
             vx = (int) Math.round(R * Math.cos(Math.toRadians(90)));
             vy = (int) Math.round(R * Math.sin(Math.toRadians(90)));
             x += vx;
             y += vy;
         } else if (num == 2) {
-            this.setImg(ghostUp);
+            if(!dead) { this.setImg(ghostUp); }
+            else if(dead && caught) { this.setImg(eyes);}
+            else { this.setImg(ghostDead); }
             vx = (int) Math.round(R * Math.cos(Math.toRadians(90)));
             vy = (int) Math.round(R * Math.sin(Math.toRadians(90)));
             x -= vx;
             y -= vy;
         } else {
-            this.setImg(ghostLeft);
+            if(!dead) { this.setImg(ghostLeft); }
+            else if(dead && caught) { this.setImg(eyes);}
+            else { this.setImg(ghostDead); }
             vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
             vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
             x -= vx;

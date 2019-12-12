@@ -2,6 +2,7 @@ package pacman;
 
 
 import pacman.powerup.PacDots;
+import pacman.powerup.PowerBall;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -177,11 +178,15 @@ public class PacMan implements CollidableObject {
         if(this.getRectangle().intersects(c.getRectangle())){
             if(c instanceof PacDots){
                 this.setImg(pacClosed);
-            }else if(c instanceof Enemy) {
-                this.removeLife();
-                this.x = 550;
-                this.y = 440;
-                setImg(pacRight);
+            }else if(c instanceof Enemy ) {
+                if(!((Enemy) c).getStatus()){
+                    this.removeLife();
+                    this.x = 550;
+                    this.y = 440;
+                    setImg(pacRight);
+                }
+            } else if(c instanceof PowerBall) {
+                Enemy.setStatus(true);
             } else {
                     Rectangle intersection = this.getRectangle().intersection(c.getRectangle());
                     if(intersection.height > intersection.width  && this.x < intersection.x){ //left
