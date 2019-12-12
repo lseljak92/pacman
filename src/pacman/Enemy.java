@@ -68,26 +68,35 @@ public class Enemy implements CollidableObject {
             } else {
                 Rectangle intersection = this.getRectangle().intersection(c.getRectangle());
                 if(intersection.height > intersection.width  && this.x < intersection.x){ //left
-                    x-= intersection.width/2;
-                    movetries = r.nextInt(2);
-                    if(movetries == 0)
-                    num = 3;
+                    x-= intersection.width + 5;
+                    collided = true;
                 }
                 else if(intersection.height > intersection.width  && this.x > c.getRectangle().x){ //right
-                    x+= intersection.width/2;
-                    num = 0;
+                    x+= intersection.width+5;
+                    collided = true;
                 }
                 else if(intersection.height < intersection.width  && this.y < intersection.y){ //up
-                    y-= intersection.height/2;
-                    num = 2;
+                    y-= intersection.height+5;
+                    collided = true;
                 }
                 else if(intersection.height < intersection.width  && this.y > c.getRectangle().y){ //down
-                    y+= intersection.height/2;
-                    num = 1;
+                    y+= intersection.height+5;
+                    collided = true;
+                } else if(this.x == 325) {
+                    num = 2;
+                } else {
+                    collided = false;
                 }
             }
 
         }
+        if(collided) {
+            decideDirection();
+            collided = false;
+        }
+    }
+    private void decideDirection() {
+        this.num = r.nextInt(5);
     }
 
     private void moveGhosts() {
