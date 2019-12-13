@@ -31,7 +31,6 @@ public class GameWorld extends JPanel  {
     private static ExtraLife life;
 
     private BufferedImage world;
-    private BufferedImage player1wins;
     private Graphics2D buffer;
     private JFrame jf;
     private PacMan p1;
@@ -198,19 +197,25 @@ public class GameWorld extends JPanel  {
         this.ghost3.drawImage(buffer);
         this.ghost4.drawImage(buffer);
 
-        if(p1.getLives() == 0){
-            gameOver = true;
-        }
-
         g2.drawImage(world,0,0,null);
         g2.setColor(Color.white);
         g2.setFont(pixelFont);
         g2.drawString("SCORE " + String.valueOf(p1.getScore()), SCREEN_WIDTH - 300, 30);
+
+        if(p1.getLives() == 0){
+            g2.drawString("You  Lost", 500, 510);
+            gameOver = true;
+        }
+
         if(showMessage) {
             g2.drawString("Press any key to start", 400, 510);
         }
         if(ghost1.getMoveStatus()) {
             showMessage = false;
+        }
+        if(map.checkWinner()) {
+            g2.drawString("You Won!", 400, 510);
+            gameOver = true;
         }
 
 

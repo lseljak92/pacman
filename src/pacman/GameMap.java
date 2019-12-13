@@ -11,8 +11,9 @@ public class GameMap {
 
     private ArrayList<Wall> walls = new ArrayList<>();
     private ArrayList<PowerUp> powerUps = new ArrayList<>();
-    int width = GameWorld.SCREEN_WIDTH;
-    int height = GameWorld.SCREEN_HEIGHT;
+    private int width = GameWorld.SCREEN_WIDTH;
+    private int height = GameWorld.SCREEN_HEIGHT;
+    private boolean winner = false;
 
     public GameMap(){
 
@@ -228,6 +229,12 @@ public class GameMap {
                 powerUps.remove(i);
             }
         }
+    }
+
+    public boolean checkWinner() {
+        if(powerUps.isEmpty())
+            winner = true;
+        return winner;
     }
 
     public void drawImage(Graphics g) {
