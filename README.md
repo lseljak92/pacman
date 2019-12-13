@@ -17,7 +17,7 @@ This project consists on practicing good OOP in Java by implementing a game that
 10. All circles need to be eaten for the player to win the game. 
 11. Pac-Man game needs to have at least four ghosts/enemies.
 
-Some extra functionalities of the original arcade game were also applied. For example, one of the power ups allows Pac-Man to be "stronger" than the enemies. Its health is not affected when he collects larger Pac-Dots. 
+Some other functions of the original arcade game were also applied in this version. For example, one of the power ups allows Pac-Man to be "stronger" than the enemies. Its health is not affected when he collects larger Pac-Dots. There are also speed boosts (pear), extra lives (small Pac-Man icon) and extra points (cherry) power ups.
 
 ## How to Run
 * Clone or download the project to create a copy on your local machine. If you need help on cloning the repository using the command line follow this link: https://services.github.com/on-demand/github-cli/clone-repo-cli.
@@ -35,6 +35,8 @@ Some extra functionalities of the original arcade game were also applied. For ex
 [Arrow LEFT]  -    Pac-Man moves to the left
 
 [Arrow RIGHT] -    Pac-Man moves to the right
+
+Player wins when all the Pac-Dots and power ups are collected. If player looses all of the three lives (and the extra life) before collecting all objects, then the game is over.
 
 
 ## src folder is to be used to store source code only.
