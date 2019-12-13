@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package pacman;
 
 import pacman.powerup.PacDots;
@@ -12,18 +8,12 @@ import pacman.walls.UnbreakableWall;
 import pacman.powerup.ExtraLife;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-
-import static javax.imageio.ImageIO.read;
 
 
 public class GameWorld extends JPanel  {
@@ -67,7 +57,7 @@ public class GameWorld extends JPanel  {
 
         this.world = new BufferedImage(GameWorld.SCREEN_WIDTH, GameWorld.SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
 
-        BufferedImage t1img=null, left = null, up = null, down = null, closed = null, backgroundImg;
+        BufferedImage t1img=null, left = null, up = null, down = null, closed = null;
         BufferedImage enemy1_up = null, enemy2_up = null, enemy3_up = null, enemy4_up = null;
         BufferedImage enemy1_down = null, enemy2_down = null, enemy3_down = null, enemy4_down = null;
         BufferedImage enemy1_left = null, enemy2_left = null, enemy3_left = null, enemy4_left = null;
