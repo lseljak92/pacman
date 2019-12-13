@@ -191,6 +191,15 @@ public class GameMap {
         for(int i = 300; i < width -300; i +=50) {
             powerUps.add(new PacDots(i, 745));
         }
+        for(int i = 375; i < 450; i+=50){
+            powerUps.add(new PacDots(i, 330));
+            powerUps.add(new PacDots(i, 390));
+        }
+
+        for(int i = width - 430; i < width - 360; i+=50){
+            powerUps.add(new PacDots(i, 330));
+            powerUps.add(new PacDots(i, 390));
+        }
 
         /**
          * Add power ball bonus
