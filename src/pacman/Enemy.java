@@ -6,12 +6,12 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+import java.util.Stack;
 
 public class Enemy implements CollidableObject {
     private final int R = 2;
     private Random r = new Random();
     private int num;
-    private int movetries;
     private int x, y, angle, vx, vy;
     private BufferedImage img;
     private BufferedImage ghostLeft;
@@ -25,6 +25,7 @@ public class Enemy implements CollidableObject {
     private static boolean move = false;
     private boolean collided = false;
     private boolean caught = false;
+    private Stack <Integer> trackMoves = new Stack<>();
 
     Enemy(int x, int y, int vx, int vy, int angle, BufferedImage up, BufferedImage down, BufferedImage left, BufferedImage right, BufferedImage ghostDead, BufferedImage eyes) {
         this.x = x;
@@ -107,8 +108,24 @@ public class Enemy implements CollidableObject {
             collided = false;
         }
     }
+//
+//    private void backTrackMoves() {
+//            this.currentMove = trackMoves.pop();
+//            if(this.currentMove == 0)
+//                this.num = 5;
+//            else if(this.currentMove == 1)
+//                this.num = 2;
+//            else if(this.currentMove == 2)
+//                this.num = 1;
+//            else if(currentMove > 2)
+//                this.num = 0;
+//
+//        //this.setImg(ghostUp);
+//    }
+
     private void decideDirection() {
         this.num = r.nextInt(5);
+        trackMoves.add(num);
     }
 
     private void moveGhosts() {
@@ -122,7 +139,7 @@ public class Enemy implements CollidableObject {
             y += vy;
         } else if (num == 1) {
             if(!dead) { this.setImg(ghostDown); }
-            else if(dead && caught) { this.setImg(eyes);}
+            else if(dead && caught) { this.setImg(eyes); }
             else { this.setImg(ghostDead); }
             vx = (int) Math.round(R * Math.cos(Math.toRadians(90)));
             vy = (int) Math.round(R * Math.sin(Math.toRadians(90)));
@@ -130,7 +147,7 @@ public class Enemy implements CollidableObject {
             y += vy;
         } else if (num == 2) {
             if(!dead) { this.setImg(ghostUp); }
-            else if(dead && caught) { this.setImg(eyes);}
+            else if(dead && caught) { this.setImg(eyes); }
             else { this.setImg(ghostDead); }
             vx = (int) Math.round(R * Math.cos(Math.toRadians(90)));
             vy = (int) Math.round(R * Math.sin(Math.toRadians(90)));
@@ -138,7 +155,7 @@ public class Enemy implements CollidableObject {
             y -= vy;
         } else {
             if(!dead) { this.setImg(ghostLeft); }
-            else if(dead && caught) { this.setImg(eyes);}
+            else if(dead && caught) { this.setImg(eyes); }
             else { this.setImg(ghostDead); }
             vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
             vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
