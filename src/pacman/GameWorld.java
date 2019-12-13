@@ -1,11 +1,8 @@
 
 package pacman;
 
-import pacman.powerup.PacDots;
-import pacman.powerup.PowerBall;
-import pacman.powerup.SpeedBoost;
+import pacman.powerup.*;
 import pacman.walls.UnbreakableWall;
-import pacman.powerup.ExtraLife;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -63,6 +60,7 @@ public class GameWorld extends JPanel  {
         BufferedImage enemy1_left = null, enemy2_left = null, enemy3_left = null, enemy4_left = null;
         BufferedImage enemy1_right = null, enemy2_right = null, enemy3_right = null, enemy4_right = null;
         BufferedImage enemy_dead = null, eyes = null;
+        BufferedImage extraPoints = null;
         InputStream typeface;
 
         try {
@@ -99,19 +97,19 @@ public class GameWorld extends JPanel  {
             PacDots.setImg(ImageIO.read(getClass().getResource("/resources/collectible_small.png")));
             PowerBall.setImg(ImageIO.read(getClass().getResource("/resources/collectible_large.png")));
             ExtraLife.setImg(ImageIO.read(getClass().getResource("/resources/life.png")));
-            SpeedBoost.setImg(ImageIO.read(getClass().getResource("/resources/cherry.png")));
+            ExtraPoints.setImg(ImageIO.read(getClass().getResource("/resources/cherry.png")));
+            SpeedBoost.setImg(ImageIO.read(getClass().getResource("/resources/pear.png")));
 
             try{
                 typeface = this.getClass().getResourceAsStream("/resources/ARCADECLASSIC.ttf");
                 pixelFont = Font.createFont(Font.TRUETYPE_FONT, typeface).deriveFont(30f);
                 GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
                 ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, typeface));
-
             }
             catch(IOException | FontFormatException e){
 
             }
-            //player1wins = ImageIO.read(getClass().getResource("/resources/player-1-wins.png"));
+
 
 
 

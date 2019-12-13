@@ -54,17 +54,9 @@ public class PacMan implements CollidableObject {
         this.pacClosed = closed;
     }
 
-    public int getX() { return x; }
-
-    public int getY() { return y; }
-
     public void addPoints(int value) { this.score += value; }
 
     public void setSpeed(int value) { this.R += value; }
-
-    public void collided(){
-        removeLife();
-    }
 
     public void setImg(BufferedImage img) {
         this.img = img;

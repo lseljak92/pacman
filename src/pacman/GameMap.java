@@ -207,6 +207,9 @@ public class GameMap {
          */
         powerUps.add(new PowerBall(210, height - 128));
         powerUps.add(new PowerBall(width - 233, height - 128));
+        powerUps.add(new ExtraPoints(width - 165, 180));
+        powerUps.add(new ExtraLife(138, height - 150));
+        powerUps.add(new SpeedBoost(width / 3 + 180, 195));
 
         for(int i = 580; i < 715; i += 50) {
             powerUps.add(new PacDots(300, i));
