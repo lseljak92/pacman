@@ -11,6 +11,7 @@ import pacman.powerup.SpeedBoost;
 import pacman.walls.UnbreakableWall;
 import pacman.powerup.ExtraLife;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -60,6 +61,7 @@ public class GameWorld extends JPanel  {
         this.jf = new JFrame("PacMan");
 
         this.world = new BufferedImage(GameWorld.SCREEN_WIDTH, GameWorld.SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
+
         BufferedImage t1img=null, left = null, up = null, down = null, closed = null, backgroundImg;
         BufferedImage enemy1_up = null, enemy2_up = null, enemy3_up = null, enemy4_up = null;
         BufferedImage enemy1_down = null, enemy2_down = null, enemy3_down = null, enemy4_down = null;
@@ -68,43 +70,40 @@ public class GameWorld extends JPanel  {
         BufferedImage enemy_dead = null, eyes = null;
 
         try {
-            BufferedImage tmp;
+            t1img = ImageIO.read(getClass().getResource("/resources/pac_right.png"));
+            left = ImageIO.read(getClass().getResource("/resources/pac_left.png"));
+            up = ImageIO.read(getClass().getResource("/resources/pac_up.png"));
+            down = ImageIO.read(getClass().getResource("/resources/pac_down.png"));
+            closed = ImageIO.read(getClass().getResource("/resources/closed_pac.png"));
 
-            t1img = read(new File("resources/pac_right.png"));
-            left = read(new File("resources/pac_left.png"));
-            up = read(new File("resources/pac_up.png"));
-            down = read(new File("resources/pac_down.png"));
-            closed = read(new File("resources/closed_pac.png"));
+            enemy1_up = ImageIO.read(getClass().getResource("/resources/green_up.png"));
+            enemy1_down = ImageIO.read(getClass().getResource("/resources/green_down.png"));
+            enemy1_right = ImageIO.read(getClass().getResource("/resources/green_right.png"));
+            enemy1_left = ImageIO.read(getClass().getResource("/resources/green_left.png"));
 
-            enemy1_up = read(new File("resources/green_up.png"));
-            enemy1_down = read(new File("resources/green_down.png"));
-            enemy1_right = read(new File("resources/green_right.png"));
-            enemy1_left = read(new File("resources/green_left.png"));
+            enemy2_up = ImageIO.read(getClass().getResource("/resources/red_up.png"));
+            enemy2_down = ImageIO.read(getClass().getResource("/resources/red_down.png"));
+            enemy2_left = ImageIO.read(getClass().getResource("/resources/red_left.png"));
+            enemy2_right = ImageIO.read(getClass().getResource("/resources/red_right.png"));
 
-            enemy2_up = read(new File("resources/red_up.png"));
-            enemy2_down = read(new File("resources/red_down.png"));
-            enemy2_left = read(new File("resources/red_left.png"));
-            enemy2_right = read(new File("resources/red_right.png"));
+            enemy3_up = ImageIO.read(getClass().getResource("/resources/blue_up.png"));
+            enemy3_down = ImageIO.read(getClass().getResource("/resources/blue_down.png"));
+            enemy3_left = ImageIO.read(getClass().getResource("/resources/blue_left.png"));
+            enemy3_right = ImageIO.read(getClass().getResource("/resources/blue_right.png"));
 
-            enemy3_up = read(new File("resources/blue_up.png"));
-            enemy3_down = read(new File("resources/blue_down.png"));
-            enemy3_left = read(new File("resources/blue_left.png"));
-            enemy3_right = read(new File("resources/blue_right.png"));
+            enemy4_up = ImageIO.read(getClass().getResource("/resources/purple_up.png"));
+            enemy4_down = ImageIO.read(getClass().getResource("/resources/purple_down.png"));
+            enemy4_left = ImageIO.read(getClass().getResource("/resources/purple_left.png"));
+            enemy4_right = ImageIO.read(getClass().getResource("/resources/purple_right.png"));
 
-            enemy4_up = read(new File("resources/purple_up.png"));
-            enemy4_down = read(new File("resources/purple_down.png"));
-            enemy4_left = read(new File("resources/purple_left.png"));
-            enemy4_right = read(new File("resources/purple_right.png"));
-
-            enemy_dead = read(new File("resources/off_ghost.png"));
-            eyes = read(new File("resources/eye.png"));
-            backgroundImg = read(new File("resources/background.png"));
-            background = new Background(backgroundImg);
-            UnbreakableWall.setImg(read(new File("resources/tile.png")));
-            PacDots.setImg(read(new File("resources/collectible_small.png")));
-            PowerBall.setImg(read(new File("resources/collectible_large.png")));
-            ExtraLife.setImg(read(new File("resources/life.png")));
-            SpeedBoost.setImg(read(new File("resources/cherry.png")));
+            enemy_dead = ImageIO.read(getClass().getResource("/resources/off_ghost.png"));
+            eyes = ImageIO.read(getClass().getResource("/resources/eye.png"));
+            background = new Background(ImageIO.read(getClass().getResource("/resources/background.png")));
+            UnbreakableWall.setImg(ImageIO.read(getClass().getResource("/resources/tile.png")));
+            PacDots.setImg(ImageIO.read(getClass().getResource("/resources/collectible_small.png")));
+            PowerBall.setImg(ImageIO.read(getClass().getResource("/resources/collectible_large.png")));
+            ExtraLife.setImg(ImageIO.read(getClass().getResource("/resources/life.png")));
+            SpeedBoost.setImg(ImageIO.read(getClass().getResource("/resources/cherry.png")));
 
             //player1wins = ImageIO.read(getClass().getResource("/resources/player-1-wins.png"));
 
