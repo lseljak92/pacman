@@ -12,6 +12,9 @@ import pacman.walls.UnbreakableWall;
 import pacman.powerup.ExtraLife;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -70,7 +73,7 @@ public class GameWorld extends JPanel  {
         BufferedImage enemy1_left = null, enemy2_left = null, enemy3_left = null, enemy4_left = null;
         BufferedImage enemy1_right = null, enemy2_right = null, enemy3_right = null, enemy4_right = null;
         BufferedImage enemy_dead = null, eyes = null;
-        InputStream typeface = null;
+        InputStream typeface;
 
         try {
             t1img = ImageIO.read(getClass().getResource("/resources/pac_right.png"));
