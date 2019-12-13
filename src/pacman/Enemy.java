@@ -64,6 +64,10 @@ public class Enemy implements CollidableObject {
         return dead;
     }
 
+    public boolean getMoveStatus() {
+        return move;
+    }
+
     public void setImg(BufferedImage img) {
         this.img = img;
     }

@@ -39,7 +39,9 @@ public class GameWorld extends JPanel  {
     private Enemy ghost3;
     private Enemy ghost4;
     private GameMap map;
+    private boolean showMessage = true;
     private Background background;
+    private static Font pixelFont;
 
 
     public static void main(String[] args) {
@@ -105,6 +107,15 @@ public class GameWorld extends JPanel  {
             ExtraLife.setImg(ImageIO.read(getClass().getResource("/resources/life.png")));
             SpeedBoost.setImg(ImageIO.read(getClass().getResource("/resources/cherry.png")));
 
+            try{
+                pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("resources/ARCADECLASSIC.ttf")).deriveFont(30f);
+                GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+                ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("esources/ARCADECLASSIC.ttf")));
+
+            }
+            catch(IOException | FontFormatException e){
+
+            }
             //player1wins = ImageIO.read(getClass().getResource("/resources/player-1-wins.png"));
 
 
@@ -190,8 +201,15 @@ public class GameWorld extends JPanel  {
 
         g2.drawImage(world,0,0,null);
         g2.setColor(Color.white);
-        g2.setFont(new Font("Helvetica", Font.BOLD, 20));
-        g2.drawString("SCORE: " + String.valueOf(p1.getScore()), SCREEN_WIDTH - 300, 30);
+        g2.setFont(pixelFont);
+        g2.drawString("SCORE " + String.valueOf(p1.getScore()), SCREEN_WIDTH - 300, 30);
+        if(showMessage) {
+            g2.drawString("Press any key to start", 400, 510);
+        }
+        if(ghost1.getMoveStatus()) {
+            showMessage = false;
+        }
+
 
         /**
          * Display player's life count
