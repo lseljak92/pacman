@@ -18,6 +18,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import static javax.imageio.ImageIO.read;
 
@@ -70,6 +71,7 @@ public class GameWorld extends JPanel  {
         BufferedImage enemy1_left = null, enemy2_left = null, enemy3_left = null, enemy4_left = null;
         BufferedImage enemy1_right = null, enemy2_right = null, enemy3_right = null, enemy4_right = null;
         BufferedImage enemy_dead = null, eyes = null;
+        InputStream typeface = null;
 
         try {
             t1img = ImageIO.read(getClass().getResource("/resources/pac_right.png"));
@@ -108,9 +110,10 @@ public class GameWorld extends JPanel  {
             SpeedBoost.setImg(ImageIO.read(getClass().getResource("/resources/cherry.png")));
 
             try{
-                pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("resources/ARCADECLASSIC.ttf")).deriveFont(30f);
+                typeface = this.getClass().getResourceAsStream("/resources/ARCADECLASSIC.ttf");
+                pixelFont = Font.createFont(Font.TRUETYPE_FONT, typeface).deriveFont(30f);
                 GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-                ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("esources/ARCADECLASSIC.ttf")));
+                ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, typeface));
 
             }
             catch(IOException | FontFormatException e){
