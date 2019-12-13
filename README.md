@@ -3,7 +3,7 @@
 ## Student Name  : Maria Luciana Seljak
 ## Student ID    : 915736307
 
-# Term Project - Second Game
+# Term Project - Pac-Man
 This project consists on practicing good OOP in Java by implementing a game that reuses the abstract classes and methods from the Tank Wars Game into a new and different game. This game is a version of the arcade game Pac-Man. It was made using IntelliJ IDE using Java version 8 update 221. The game fullfils the following requirements:
 1. Pac-Man character must move left and right, up and down through the maze.
 2. Pac-Man character must "rotate" based on the direction.
@@ -28,13 +28,13 @@ Some extra functionalities of the original arcade game were also applied. For ex
 
 ## How to Play
 
-[Arrow UP]    -    Pac-Man 1 moves upwards
+[Arrow UP]    -    Pac-Man moves upwards
 
-[Arrow DOWN]  -    Pac-Man 1 moves downwards
+[Arrow DOWN]  -    Pac-Man moves downwards
 
-[Arrow LEFT]  -    Pac-Man 1 moves to the left
+[Arrow LEFT]  -    Pac-Man moves to the left
 
-[Arrow RIGHT] -    Pac-Man 1 moves to the right
+[Arrow RIGHT] -    Pac-Man moves to the right
 
 
 ## src folder is to be used to store source code only.
