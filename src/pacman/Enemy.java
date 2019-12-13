@@ -108,24 +108,25 @@ public class Enemy implements CollidableObject {
             collided = false;
         }
     }
-//
+
 //    private void backTrackMoves() {
-//            this.currentMove = trackMoves.pop();
-//            if(this.currentMove == 0)
+//        if(!trackMoves.isEmpty()) {
+//            int currentMove = trackMoves.pop();
+//            if (currentMove == 0)
 //                this.num = 5;
-//            else if(this.currentMove == 1)
+//            else if (currentMove == 1)
 //                this.num = 2;
-//            else if(this.currentMove == 2)
+//            else if (currentMove == 2)
 //                this.num = 1;
-//            else if(currentMove > 2)
-//                this.num = 0;
-//
+//            else if (currentMove > 2)
+//                num = 0;
+//        }
 //        //this.setImg(ghostUp);
 //    }
 
     private void decideDirection() {
         this.num = r.nextInt(5);
-        trackMoves.add(num);
+        trackMoves.push(num);
     }
 
     private void moveGhosts() {

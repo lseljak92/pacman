@@ -49,26 +49,48 @@ public class GameMap {
         /**
          * Set up middle area (enemies' starting point)
          */
-        for(int i = 400; i < width/3 + 110; i+=15){
+        for(int i = 540; i < width - 525; i+=15){
             walls.add(new UnbreakableWall(i, 300));
         }
 
-        for(int i = width - 425; i > width - width/3 - 130; i-=15){
-            walls.add(new UnbreakableWall(i, 300));
-        }
-
-        for(int i = 335; i <= width - 350; i+=15){
+        for(int i = 475; i <= width - 475; i+=15){
             walls.add(new UnbreakableWall(i, 420));
         }
 
         for(int i = 300; i <= 420; i+=15){
-            walls.add(new UnbreakableWall(335, i));
-            walls.add(new UnbreakableWall(width - 350, i));
+            walls.add(new UnbreakableWall(475, i));
+            walls.add(new UnbreakableWall(width - 475, i));
         }
 
         /**
          * Create inner maze walls
          */
+        for(int i = 335; i < 400; i+=15){
+            walls.add(new UnbreakableWall(i, 300));
+            walls.add(new UnbreakableWall(i, 420));
+        }
+
+        for(int i = 300; i < 420; i+=15){
+            walls.add(new UnbreakableWall(335, i));
+        }
+
+        for(int i = 475; i > 410; i-=15){
+            walls.add(new UnbreakableWall(i, 360));
+        }
+
+        for(int i = width - 345; i > width - 400; i-=15){
+            walls.add(new UnbreakableWall(i, 300));
+            walls.add(new UnbreakableWall(i, 420));
+        }
+
+        for(int i = 300; i < 420; i+=15){
+            walls.add(new UnbreakableWall(width - 345, i));
+        }
+
+        for(int i = width - 475; i < width - 400; i+=15){
+            walls.add(new UnbreakableWall(i, 360));
+        }
+
         for(int i = 175; i < width/3; i+=15){
             walls.add(new UnbreakableWall(i, 110));
             walls.add(new UnbreakableWall(i, height - 90));
