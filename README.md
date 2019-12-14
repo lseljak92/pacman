@@ -23,7 +23,7 @@ Some other functions of the original arcade game were also applied in this versi
 * Clone or download the project to create a copy on your local machine. If you need help on cloning the repository using the command line follow this link: https://services.github.com/on-demand/github-cli/clone-repo-cli.
 * To play the game, run the csc413-secondgame-lseljak92.jar file located in the JAR folder.
 
-* You can also run the game in your preferred IDE. To do so, import the project and select the csc413-tankgame-lseljak92 folder as the root.
+* You can also run the game in your preferred IDE. To do so, import the project and select the csc413-secondgame-lseljak92 folder as the root.
 * Select the GameWorld class and Run the project.
 
 ## How to Play
