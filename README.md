@@ -38,9 +38,3 @@ Some other functions of the original arcade game were also applied in this versi
 
 Player wins when all the Pac-Dots and power ups are collected. If player looses all of the three lives (and the extra life) before collecting all objects, then the game is over.
 
-
-## src folder is to be used to store source code only.
-
-## resources folder is to be used to store the resources for your project only. This includes images, sounds, map text files, etc.
-
-## jar folder is used to store the built jar of your term-project. NO SOURCE CODE SHOULD BE IN THIS FOLDER. DOING SO WILL CAUSE POINTS TO BE DEDUCTED
